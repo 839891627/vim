@@ -6,11 +6,8 @@
 5. js语法检测，需要nodejs支持，在vim80下，安装npm i jshint
 6. vim8.0升级后，好像不支持透明度、窗口置顶了
 
-    ####注意点 *
-    git上的php - cs - fixer缺少了vim文件(http: //cs.sensiolabs.org/)
-        *
-        auth - info ftplugin文件夹不识别， 需要改成 plugin *
+####注意点 *
+1. git上的php-cs-fixer缺少了vim文件(http: //cs.sensiolabs.org/)
+2. *auth-info ftplugin文件夹不识别， 需要改成 plugin *
 
-
-
-        ![tagbar、 ctrlp、 etc](. / images / pic.png)
+![tagbar、ctrlp、etc](./images/pic.png)
