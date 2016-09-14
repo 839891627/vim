@@ -1,5 +1,4 @@
-###
-便携版vim
+### 便携版vim
 1. vim80加入PATH
 2. 需要python2支持（ 加入PATH）
 3. 需要git 并加入PATH

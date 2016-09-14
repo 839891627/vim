@@ -1,2 +1,2 @@
-./vimfiles/bundle
-./vim80/node_modules
+vimfiles/bundle
+vim80/node_modules
