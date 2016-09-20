@@ -36,7 +36,7 @@ not be repeated below, unless there is extra information.
 
 After 8.0 is released:
 - Drop support for older MS-Windows systems, before XP.
-  Patch from Ken Takata, updated 2016 Sep 12.
+  Patch from Ken Takata, 2016 Mar 8.
 
 +channel:
 - channel_wait() may return an error while there is still something to read.
@@ -182,11 +182,6 @@ Patch for syntax folding optimization. (Shougo, 2016 Sep 6, #1045)
 
 Patch for restoring wide characters in the console buffer.
 (Ken Takata, 2016 Jun 7)
-
-Patch for drag&drop reordering of GUI tab pages reordering.
-(Ken Takata, 2013 Nov 22, second one, also by Masamichi Abe)
-Now on Git: https://gist.github.com/nocd5/165286495c782b815b94
-Update 2016 Aug 10.
 
 We can use '. to go to the last change in the current buffer, but how about
 the last change in any buffer?  Can we use ', (, is next to .)?
@@ -524,6 +519,11 @@ Patch to add :lockjumps. (Carlo Baldassi, 2015 May 25)
 OK to not block marks?
 
 Mixup of highlighting when there is a match and SpellBad. (ZyX, 2015 Jan 1)
+
+Patch for drag&drop reordering of GUI tab pages reordering.
+(Ken Takata, 2013 Nov 22, second one, also by Masamichi Abe)
+Now on Git: https://gist.github.com/nocd5/165286495c782b815b94
+Update 2016 Aug 10.
 
 Patch on Issue 72: 'autochdir' causes problems for :vimgrep.
 

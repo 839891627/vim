@@ -1,133 +1,143 @@
-README.txt for version 8.0 of Vim: Vi IMproved.
+README for the Vim source code
+
+Here are a few hints for finding your way around the source code.  This
+doesn't make it less complex than it is, but it gets you started.
+
+You might also want to read ":help development".
 
 
-WHAT IS VIM?
+JUMPING AROUND
 
-Vim is a greatly improved version of the good old UNIX editor Vi.  Many new
-features have been added: multi-level undo, syntax highlighting, command line
-history, on-line help, spell checking, filename completion, block operations,
-script language, etc.  There is also a Graphical User Interface (GUI)
-available.  Still, Vi compatibility is maintained, those who have Vi "in the
-fingers" will feel at home.  See "runtime/doc/vi_diff.txt" for differences with
-Vi.
+First of all, use ":make tags" to generate a tags file, so that you can use
+the ":tag" command to jump around the source code.
 
-This editor is very useful for editing programs and other plain text files.
-All commands are given with normal keyboard characters, so those who can type
-with ten fingers can work very fast.  Additionally, function keys can be
-mapped to commands by the user, and the mouse can be used.
+To jump to a function or variable definition, move the cursor on the name and
+use the CTRL-] command.  Use CTRL-T or CTRL-O to jump back.
 
-Vim runs under MS-Windows (NT, 2000, XP, Vista, 7, 8, 10), Macintosh, VMS and
-almost all flavours of UNIX.  Porting to other systems should not be very
-difficult.  Older versions of Vim run on MS-DOS, MS-Windows 95/98/Me, Amiga
-DOS, Atari MiNT, BeOS, RISC OS and OS/2.  These are no longer maintained.
+To jump to a file, move the cursor on its name and use the "gf" command.
 
-
-DISTRIBUTION
-
-You can often use your favorite package manager to install Vim.  On Mac and
-Linux a small version of Vim is pre-installed, you still need to install Vim
-if you want more features.
-
-There are separate distributions for Unix, PC, Amiga and some other systems.
-This README.txt file comes with the runtime archive.  It includes the
-documentation, syntax files and other files that are used at runtime.  To run
-Vim you must get either one of the binary archives or a source archive.
-Which one you need depends on the system you want to run it on and whether you
-want or must compile it yourself.  Check "http://www.vim.org/download.php" for
-an overview of currently available distributions.
-
-Some popular places to get the latest Vim:
-* Check out the git repository from github: https://github.com/vim/vim.
-* Get the source code as an archive: https://github.com/vim/vim/releases.
-* Get a Windows executable from the vim-win32-installer repository:
-  https://github.com/vim/vim-win32-installer/releases.
+Most code can be found in a file with an obvious name (incomplete list):
+	buffer.c	manipulating buffers (loaded files)
+	diff.c		diff mode (vimdiff)
+	eval.c		expression evaluation
+	fileio.c	reading and writing files
+	fold.c		folding
+	getchar.c	getting characters and key mapping
+	mark.c		marks
+	mbyte.c		multi-byte character handling
+	memfile.c	storing lines for buffers in a swapfile
+	memline.c	storing lines for buffers in memory
+	menu.c		menus
+	message.c	(error) messages
+	ops.c		handling operators ("d", "y", "p")
+	option.c	options
+	quickfix.c	quickfix commands (":make", ":cn")
+	regexp.c	pattern matching
+	screen.c	updating the windows
+	search.c	pattern searching
+	spell.c		spell checking
+	syntax.c	syntax and other highlighting
+	tag.c		tags
+	term.c		terminal handling, termcap codes
+	undo.c		undo and redo
+	window.c	handling split windows
 
 
-COMPILING
+IMPORTANT VARIABLES
 
-If you obtained a binary distribution you don't need to compile Vim.  If you
-obtained a source distribution, all the stuff for compiling Vim is in the
-"src" directory.  See src/INSTALL for instructions.
+The current mode is stored in "State".  The values it can have are NORMAL,
+INSERT, CMDLINE, and a few others.
 
+The current window is "curwin".  The current buffer is "curbuf".  These point
+to structures with the cursor position in the window, option values, the file
+name, etc.  These are defined in structs.h.
 
-INSTALLATION
-
-See one of these files for system-specific instructions.  Either in the
-READMEdir directory (in the repository) or the top directory (if you unpack an
-archive):
-
-README_ami.txt		Amiga
-README_unix.txt		Unix
-README_dos.txt		MS-DOS and MS-Windows
-README_mac.txt		Macintosh
-README_vms.txt		VMS
-
-There are more README_*.txt files, depending on the distribution you used.
+All the global variables are declared in globals.h.
 
 
-DOCUMENTATION
+THE MAIN LOOP
 
-The Vim tutor is a one hour training course for beginners.  Often it can be
-started as "vimtutor".  See ":help tutor" for more information.
+This is conveniently called main_loop().  It updates a few things and then
+calls normal_cmd() to process a command.  This returns when the command is
+finished.
 
-The best is to use ":help" in Vim.  If you don't have an executable yet, read
-"runtime/doc/help.txt".  It contains pointers to the other documentation
-files.  The User Manual reads like a book and is recommended to learn to use
-Vim.  See ":help user-manual".
+The basic idea is that Vim waits for the user to type a character and
+processes it until another character is needed.  Thus there are several places
+where Vim waits for a character to be typed.  The vgetc() function is used for
+this.  It also handles mapping.
 
-
-COPYING
-
-Vim is Charityware.  You can use and copy it as much as you like, but you are
-encouraged to make a donation to help orphans in Uganda.  Please read the file
-"runtime/doc/uganda.txt" for details (do ":help uganda" inside Vim).
-
-Summary of the license: There are no restrictions on using or distributing an
-unmodified copy of Vim.  Parts of Vim may also be distributed, but the license
-text must always be included.  For modified versions a few restrictions apply.
-The license is GPL compatible, you may compile Vim with GPL libraries and
-distribute it.
+Updating the screen is mostly postponed until a command or a sequence of
+commands has finished.  The work is done by update_screen(), which calls
+win_update() for every window, which calls win_line() for every line.
+See the start of screen.c for more explanations.
 
 
-SPONSORING
+COMMAND-LINE MODE
 
-Fixing bugs and adding new features takes a lot of time and effort.  To show
-your appreciation for the work and motivate Bram and others to continue
-working on Vim please send a donation.
-
-Since Bram is back to a paid job the money will now be used to help children
-in Uganda.  See runtime/doc/uganda.txt.  But at the same time donations
-increase Bram's motivation to keep working on Vim!
-
-For the most recent information about sponsoring look on the Vim web site:
-
-	http://www.vim.org/sponsor/
+When typing a ":", normal_cmd() will call getcmdline() to obtain a line with
+an Ex command.  getcmdline() contains a loop that will handle each typed
+character.  It returns when hitting <CR> or <Esc> or some other character that
+ends the command line mode.
 
 
-CONTRIBUTING
+EX COMMANDS
 
-If you would like to help making Vim better, see the CONTRIBUTING.md file.
+Ex commands are handled by the function do_cmdline().  It does the generic
+parsing of the ":" command line and calls do_one_cmd() for each separate
+command.  It also takes care of while loops.
 
+do_one_cmd() parses the range and generic arguments and puts them in the
+exarg_t and passes it to the function that handles the command.
 
-INFORMATION
-
-The latest news about Vim can be found on the Vim home page:
-	http://www.vim.org/
-
-If you have problems, have a look at the Vim documentation or tips:
-	http://www.vim.org/docs.php
-	http://vim.wikia.com/wiki/Vim_Tips_Wiki
-
-If you still have problems or any other questions, use one of the mailing
-lists to discuss them with Vim users and developers:
-	http://www.vim.org/maillist.php
-
-If nothing else works, report bugs directly:
-	Bram Moolenaar <Bram@vim.org>
+The ":" commands are listed in ex_cmds.h.  The third entry of each item is the
+name of the function that handles the command.  The last entry are the flags
+that are used for the command.
 
 
-MAIN AUTHOR
+NORMAL MODE COMMANDS
 
-Send any other comments, patches, flowers and suggestions to:
+The Normal mode commands are handled by the normal_cmd() function.  It also
+handles the optional count and an extra character for some commands.  These
+are passed in a cmdarg_t to the function that handles the command.
 
-	Bram Moolenaar		E-mail:	Bram@vim.org
+There is a table nv_cmds in normal.c which lists the first character of every
+command.  The second entry of each item is the name of the function that
+handles the command.
+
+
+INSERT MODE COMMANDS
+
+When doing an "i" or "a" command, normal_cmd() will call the edit() function.
+It contains a loop that waits for the next character and handles it.  It
+returns when leaving Insert mode.
+
+
+OPTIONS
+
+There is a list with all option names in option.c, called options[].
+
+
+THE GUI
+
+Most of the GUI code is implemented like it was a clever terminal.  Typing a
+character, moving a scrollbar, clicking the mouse, etc. are all translated
+into events which are written in the input buffer.  These are read by the
+main code, just like reading from a terminal.  The code for this is scattered
+through gui.c.  For example: gui_send_mouse_event() for a mouse click and
+gui_menu_cb() for a menu action.  Key hits are handled by the system-specific
+GUI code, which calls add_to_input_buf() to send the key code.
+
+Updating the GUI window is done by writing codes in the output buffer, just
+like writing to a terminal.  When the buffer gets full or is flushed,
+gui_write() will parse the codes and draw the appropriate items.  Finally the
+system-specific GUI code will be called to do the work.
+
+
+DEBUGGING THE GUI
+
+Remember to prevent that gvim forks and the debugger thinks Vim has exited,
+add the "-f" argument.  In gdb: "run -f -g".
+
+When stepping through display updating code, the focus event is triggered
+when going from the debugger to Vim and back.  To avoid this, recompile with
+some code in gui_focus_change() disabled.
