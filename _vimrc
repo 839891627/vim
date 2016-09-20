@@ -162,7 +162,7 @@ call vundle#end()           " required
 filetype plugin indent on   " required
 
 "bufexplorer
-nnoremap <silent> <space> :ToggleBufExplorer<CR>
+" nnoremap <silent> <space> :ToggleBufExplorer<CR>
 
 let g:AutoPairsMapCh=0  " 取消auto-pairs的<c-h>删除前一个字符的映射
 
@@ -277,6 +277,8 @@ let g:syntastic_quiet_messages = {
 let g:bufExplorerSortBy = 'name'               " 按文件名排序
 nmap zl :bn<cr>
 nmap zh :bp<cr>
+nmap <space> :bn<cr>
+nmap <tab> <c-w><c-w>
 
 "goyo
 let g:goyo_width=150
