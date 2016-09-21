@@ -1,11 +1,17 @@
 " 判断操作系统类型
 if(has('win32') || has('win64'))
     let g:isWIN = 1
-    let g:isMAC = 0
+   let g:isMAC = 0
 else
-    let g:isWIN = 0
-    let g:isMAC = 1
+    if system('uname') =~ 'Darwin'
+        let g:isWIN = 0
+        let g:isMAC = 1
+    else
+        let g:isWIN = 0
+        let g:isMAC = 0
+    endif
 endif
+
 
 " 判断是否处于GUI界面
 if has('gui_running')
@@ -14,12 +20,12 @@ else
     let g:isGUI = 0
 endif
 
+
 " 设置着色模式和字体
 if g:isWIN
     " colorscheme molokai
-    " colorscheme yuting
+    " colorscheme monokai
     colorscheme solarized
-    " colorscheme dracula1
     " set background=dark
     set guifont=YaHei_Consolas_Hybrid:h11
 else
@@ -162,7 +168,7 @@ call vundle#end()           " required
 filetype plugin indent on   " required
 
 "bufexplorer
-" nnoremap <silent> <space> :ToggleBufExplorer<CR>
+nnoremap <silent> <space> :ToggleBufExplorer<CR>
 
 let g:AutoPairsMapCh=0  " 取消auto-pairs的<c-h>删除前一个字符的映射
 
@@ -277,7 +283,6 @@ let g:syntastic_quiet_messages = {
 let g:bufExplorerSortBy = 'name'               " 按文件名排序
 nmap zl :bn<cr>
 nmap zh :bp<cr>
-nmap <space> :bn<cr>
 nmap <tab> <c-w><c-w>
 
 "goyo
