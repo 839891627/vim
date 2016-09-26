@@ -160,8 +160,8 @@ Plugin 'https://github.com/skywind3000/asyncrun.vim.git'
 " Plugin 'ryanoasis/vim-devicons'
 " Plugin 'trailing-whitespace'
 " Plugin 'https://github.com/Shougo/unite.vim.git'
-Plugin 'https://github.com/scrooloose/syntastic.git'
-" Plugin 'https://github.com/gcmt/wildfire.vim.git'
+" Plugin 'https://github.com/scrooloose/syntastic.git'
+Plugin 'https://github.com/gcmt/wildfire.vim.git'
 " Plugin 'https://github.com/jlanzarotta/colorSchemeExplorer.git'
 
 call vundle#end()           " required
@@ -254,30 +254,30 @@ nmap <leader>fe :FencView<cr>
 nmap <leader>ff :CtrlPMixed<cr>
 
 "syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-let g:syntastic_aggregate_errors = 1
-" 过滤错误类型等
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+" let g:syntastic_aggregate_errors = 1
+" " 过滤错误类型等
+" " let g:syntastic_quiet_messages = {
+" " \ "!level":  "errors,warnings",
+" " \ "type":    "style",
+" " \ "regex":   '\m\[C03\d\d\]',
+" " \ "file:p":  ['\m^/usr/include/', '\m\c\.h$'] }
 " let g:syntastic_quiet_messages = {
-" \ "!level":  "errors,warnings",
-" \ "type":    "style",
-" \ "regex":   '\m\[C03\d\d\]',
-" \ "file:p":  ['\m^/usr/include/', '\m\c\.h$'] }
-let g:syntastic_quiet_messages = {
-            \ "!level":  "errors,warnings",
-            \ "regex":   '\m\[C03\d\d\]',
-            \ "file:p":  ['\m^/usr/include/', '\m\c\.h$'] }
-" let g:syntastic_mode_map      = {
-" \'mode': 'active',
-" \'passive_filetypes': ['php','groovy', 'kotlin', 'ceylon', 'scala', 'clojure', 'lisp', 'eruby', 'slim', 'jade', 'scss', 'less', 'css', 'html', 'xhtml']
-" \}                                 " 指定不需要开启检查的语言
+            " \ "!level":  "errors,warnings",
+            " \ "regex":   '\m\[C03\d\d\]',
+            " \ "file:p":  ['\m^/usr/include/', '\m\c\.h$'] }
+" " let g:syntastic_mode_map      = {
+" " \'mode': 'active',
+" " \'passive_filetypes': ['php','groovy', 'kotlin', 'ceylon', 'scala', 'clojure', 'lisp', 'eruby', 'slim', 'jade', 'scss', 'less', 'css', 'html', 'xhtml']
+" " \}                                 " 指定不需要开启检查的语言
 
 " BufExplorer         文件缓冲浏览器
 let g:bufExplorerSortBy = 'name'               " 按文件名排序
