@@ -146,7 +146,8 @@ Plugin 'https://github.com/othree/javascript-libraries-syntax.vim.git'
 Plugin 'https://github.com/vim-airline/vim-airline-themes.git'
 Plugin 'https://github.com/leshill/vim-json.git'
 Plugin 'jwalton512/vim-blade'
-Plugin 'https://github.com/Valloric/MatchTagAlways.git'
+" Plugin 'https://github.com/Valloric/MatchTagAlways.git'
+Plugin 'https://github.com/gregsexton/MatchTag.git'
 Plugin 'https://github.com/tpope/vim-fugitive.git'
 Plugin 'https://github.com/pangloss/vim-javascript.git'
 Plugin 'https://github.com/FooSoft/vim-argwrap.git'
@@ -154,6 +155,7 @@ Plugin 'https://github.com/Shutnik/jshint2.vim.git'
 Plugin 'https://github.com/digitaltoad/vim-jade.git'
 Plugin 'https://github.com/briancollins/vim-jst.git'
 Plugin 'https://github.com/skywind3000/asyncrun.vim.git'
+Plugin 'https://github.com/chemzqm/wxapp.vim.git'
 " Plugin 'https://github.com/airblade/vim-gitgutter.git'
 " Plugin 'https://github.com/ervandew/supertab.git'
 " Plugin 'https://github.com/nono/jquery.vim.git'
@@ -945,4 +947,41 @@ nnoremap ,r :%s/<C-r><C-w>/
 vnoremap ,r y:%s/<C-r>"/
 
 
-" make -f Make_ming.mak GUI=yes FEATURES=HUGE MBYTE=yes IME=yes GIME=yes DYNAMIC_IME=yes OLE=yes PYTHON="C:\Python27" DYNAMIC_PYTHON=yes PYTHON_VER=27 CSCOPE=yes DEBUG=no LUA="C:\Lua" DYNAMIC_LUA=yes LUA_VER=53 USERNAME=arvin USERDOMAIN=arvin.cao@outlook.com ARCH=x86-64 gvim.exe
+let g:user_emmet_settings = {
+    \ 'wxss': {
+    \   'extends': 'css',
+    \ },
+    \ 'wxml': {
+    \   'extends': 'html',
+    \   'aliases': {
+    \     'div': 'view',
+    \     'span': 'text',
+    \   },
+    \  'default_attributes': {
+    \     'block': [{'wx:for-items': '{{list}}','wx:for-item': '{{item}}'}],
+    \     'navigator': [{'url': '', 'redirect': 'false'}],
+    \     'scroll-view': [{'bindscroll': ''}],
+    \     'swiper': [{'autoplay': 'false', 'current': '0'}],
+    \     'icon': [{'type': 'success', 'size': '23'}],
+    \     'progress': [{'precent': '0'}],
+    \     'button': [{'size': 'default'}],
+    \     'checkbox-group': [{'bindchange': ''}],
+    \     'checkbox': [{'value': '', 'checked': ''}],
+    \     'form': [{'bindsubmit': ''}],
+    \     'input': [{'type': 'text'}],
+    \     'label': [{'for': ''}],
+    \     'picker': [{'bindchange': ''}],
+    \     'radio-group': [{'bindchange': ''}],
+    \     'radio': [{'checked': ''}],
+    \     'switch': [{'checked': ''}],
+    \     'slider': [{'value': ''}],
+    \     'action-sheet': [{'bindchange': ''}],
+    \     'modal': [{'title': ''}],
+    \     'loading': [{'bindchange': ''}],
+    \     'toast': [{'duration': '1500'}],
+    \     'audio': [{'src': ''}],
+    \     'video': [{'src': ''}],
+    \     'image': [{'src': '', 'mode': 'scaleToFill'}],
+    \   }
+    \ },
+    \}
